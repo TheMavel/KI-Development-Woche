@@ -244,6 +244,32 @@ section[id]{scroll-margin-top:var(--header-h)}
 .chip{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 18px;font:500 var(--t-label)/1 var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1px solid var(--paper);cursor:pointer;text-decoration:none;white-space:nowrap;transition:background-color .25s,color .25s}
 .chip:hover{background:transparent;color:var(--paper)}
 @media (max-width:700px){.contact-row{grid-template-columns:1fr}.contact-row dd:last-child{justify-self:start}}
+/* Newsletter */
+.newsletter{margin-top:clamp(96px,12vw,180px);border-top:1px dotted var(--line-light);padding-top:clamp(48px,6vw,80px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px 72px;align-items:start}
+.newsletter .eyebrow{color:var(--paper-dim);margin-bottom:24px}
+.newsletter h2{font:300 var(--t-lg)/1.04 var(--font-display);text-transform:uppercase;text-wrap:balance}
+.newsletter-lead{margin-top:24px;max-width:52ch;color:var(--paper-soft)}
+.nl-form{display:grid;gap:26px;min-width:0}
+.nl-field{display:grid;gap:8px}
+.nl-field label{font:500 var(--t-label)/1.4 var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--paper-dim)}
+.nl-field input{width:100%;min-height:52px;padding:10px 0;border:0;border-bottom:1px dotted var(--line-light);border-radius:0;background:transparent;color:var(--paper);font:300 clamp(20px,2.4vw,28px)/1.2 var(--font-display);transition:border-color .25s}
+.nl-field input::placeholder{color:rgba(242,242,240,.32)}
+.nl-field input:focus{outline:none;border-bottom:1px solid var(--glow)}
+.nl-field input:focus-visible{outline:none;box-shadow:0 1px 0 var(--glow)}
+.nl-check{display:grid;grid-template-columns:22px minmax(0,1fr);gap:14px;align-items:start;font-size:13px;line-height:1.6;color:var(--paper-soft);cursor:pointer}
+.nl-check input{appearance:none;-webkit-appearance:none;width:22px;height:22px;margin:0;border:1px solid var(--line-light);background:transparent;display:grid;place-items:center;cursor:pointer}
+.nl-check input::before{content:"";width:10px;height:6px;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:translateY(-1px) rotate(-45deg);opacity:0}
+.nl-check input:checked{background:var(--glow);border-color:var(--glow)}
+.nl-check input:checked::before{opacity:1}
+.nl-error{display:none;font:500 var(--t-label)/1.5 var(--font-mono);letter-spacing:.06em;color:var(--glow)}
+.nl-error--check{margin-top:-14px}
+.is-invalid .nl-error,.nl-error.is-shown{display:block}
+.is-invalid input{border-bottom-color:var(--glow)}
+.nl-submit{justify-self:start;border:0;padding:0;background:none;cursor:pointer}
+.nl-submit[disabled]{opacity:.6;cursor:wait}
+.nl-status{min-height:1.6em;font:500 var(--t-small)/1.6 var(--font-mono);color:var(--paper)}
+.nl-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+@media (max-width:860px){.newsletter{grid-template-columns:1fr}}
 .site-footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;margin-top:clamp(64px,8vw,120px);padding-block:28px;border-top:1px dotted var(--line-light);font:500 var(--t-label)/1.5 var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--paper-dim)}
 .site-footer a{text-decoration:none}
 .site-footer a:hover{color:var(--paper)}
@@ -569,6 +595,34 @@ section[id]{scroll-margin-top:var(--header-h)}
         </dl>
       </div>
 
+      <div class="newsletter" id="newsletter">
+        <div>
+          <p class="eyebrow">Newsletter</p>
+          <h2>KI aus der Praxis.<br>Direkt ins Postfach.</h2>
+          <p class="newsletter-lead">Neue Workshops, Expert Talks und Events aus dem STARTPLATZ AI HUB, dazu Werkzeuge und Ideen, die ich selbst nutze. Abmeldung jederzeit mit einem Klick.</p>
+        </div>
+        <form class="nl-form" id="nl-form" novalidate>
+          <div class="nl-field">
+            <label for="nl-name">Name</label>
+            <input id="nl-name" name="name" type="text" autocomplete="name" placeholder="z. B. Alex Müller" required>
+            <p class="nl-error" id="nl-name-error">Bitte gib deinen Namen ein.</p>
+          </div>
+          <div class="nl-field">
+            <label for="nl-email">E-Mail</label>
+            <input id="nl-email" name="email" type="email" autocomplete="email" placeholder="name@firma.de" required>
+            <p class="nl-error" id="nl-email-error">Bitte gib eine gültige E-Mail-Adresse ein.</p>
+          </div>
+          <div class="nl-hp" aria-hidden="true"><label for="nl-website">Website</label><input id="nl-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+          <label class="nl-check" for="nl-consent">
+            <input id="nl-consent" name="consent" type="checkbox" required>
+            <span>Ich möchte den Newsletter erhalten und bin mit der Verarbeitung meiner Angaben zu diesem Zweck einverstanden. Die Einwilligung kann ich jederzeit widerrufen.</span>
+          </label>
+          <p class="nl-error nl-error--check" id="nl-consent-error">Bitte bestätige die Einwilligung.</p>
+          <button class="cta nl-submit" type="submit"><span class="cta-label">Newsletter abonnieren</span><span class="cta-arrow" aria-hidden="true"><i>→</i></span></button>
+          <p class="nl-status" id="nl-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
       <footer class="site-footer">
         <span>© 2026 Jakow Smirin</span>
         <span>Idea Machine &amp; Problem Solver from the Future</span>
@@ -647,6 +701,69 @@ section[id]{scroll-margin-top:var(--header-h)}
     try {
       navigator.clipboard.writeText(text).then(function(){ copyFeedback("Kopiert ✓"); }, selectMail);
     } catch (e) { selectMail(); }
+  });
+
+  /* ---------- Newsletter-Anmeldung (Supabase) ----------
+     SUPABASE_KEY: den öffentlichen "anon"- bzw. "publishable"-Key eintragen
+     (Dashboard → Project Settings → API Keys). Niemals den service_role- oder secret-Key verwenden. */
+  var SUPABASE_URL = "https://jyewqmrwdpkihchtauxw.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_TgFVkwo94rdQ0G0BH2Q2ig_Ol0gesV3";
+  var SUPABASE_TABLE = "newsletter_subscribers";
+  var nlForm = document.getElementById("nl-form");
+  var nlStatus = document.getElementById("nl-status");
+  var nlName = document.getElementById("nl-name");
+  var nlEmail = document.getElementById("nl-email");
+  var nlConsent = document.getElementById("nl-consent");
+  var nlConsentErr = document.getElementById("nl-consent-error");
+  var nlSubmit = nlForm.querySelector(".nl-submit");
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  function markField(input, ok){
+    var field = input.closest(".nl-field");
+    field.classList.toggle("is-invalid", !ok);
+    input.setAttribute("aria-invalid", String(!ok));
+    if (!ok) input.setAttribute("aria-describedby", input.id + "-error"); else input.removeAttribute("aria-describedby");
+  }
+  function validate(){
+    var okName = nlName.value.trim().length >= 2;
+    var okMail = EMAIL_RE.test(nlEmail.value.trim());
+    var okConsent = nlConsent.checked;
+    markField(nlName, okName); markField(nlEmail, okMail);
+    nlConsentErr.classList.toggle("is-shown", !okConsent);
+    if (!okName) nlName.focus(); else if (!okMail) nlEmail.focus(); else if (!okConsent) nlConsent.focus();
+    return okName && okMail && okConsent;
+  }
+  [nlName, nlEmail].forEach(function(input){
+    input.addEventListener("input", function(){ if (input.closest(".nl-field").classList.contains("is-invalid")) markField(input, input === nlName ? input.value.trim().length >= 2 : EMAIL_RE.test(input.value.trim())); });
+  });
+  nlConsent.addEventListener("change", function(){ if (nlConsent.checked) nlConsentErr.classList.remove("is-shown"); });
+  nlForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    nlStatus.textContent = "";
+    if (!validate()) return;
+    if (document.getElementById("nl-website").value) return; // Spam-Schutz
+    if (!SUPABASE_KEY){
+      nlStatus.textContent = "Die Anmeldung ist bald möglich. Bis dahin erreichst du mich per E-Mail oder LinkedIn.";
+      return;
+    }
+    nlSubmit.disabled = true;
+    nlStatus.textContent = "Wird gesendet …";
+    var headers = { "apikey": SUPABASE_KEY, "Content-Type": "application/json", "Prefer": "return=minimal" };
+    if (SUPABASE_KEY.indexOf("eyJ") === 0) headers.Authorization = "Bearer " + SUPABASE_KEY; // alter anon-JWT
+    fetch(SUPABASE_URL + "/rest/v1/" + SUPABASE_TABLE, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({ name: nlName.value.trim(), email: nlEmail.value.trim().toLowerCase(), consent: true, source: "portfolio" })
+    })
+      .then(function(res){
+        if (res.status === 409){ nlForm.reset(); nlStatus.textContent = "Diese E-Mail-Adresse ist bereits eingetragen. Danke!"; return; }
+        if (!res.ok) throw new Error(res.status);
+        nlForm.reset();
+        nlStatus.textContent = "Danke! Du bist eingetragen und bekommst den nächsten Newsletter.";
+      })
+      .catch(function(){
+        nlStatus.textContent = "Das hat nicht geklappt. Bitte versuche es später noch einmal oder schreib mir an wbk2020@gmail.com.";
+      })
+      .then(function(){ nlSubmit.disabled = false; });
   });
 
   /* ---------- Canvas-Szenen ---------- */
