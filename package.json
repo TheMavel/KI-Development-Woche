@@ -1,5 +1,5 @@
 {
-  "name": "jakow-portfolio",
+  "name": "tooldex",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@types/node": "^26.6.4",
     "typescript": "^5.9.2",
     "vite": "^7.1.5"
   }
