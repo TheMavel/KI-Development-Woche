@@ -4,7 +4,7 @@ Anleitung für KI-Assistenten (ChatGPT/Codex, Claude, Cursor, Copilot …), die 
 
 ## Projekt in einem Satz
 
-Persönliche Portfolio-Seite von **Jakow Smirin**, CEO des STARTPLATZ AI HUB in Düsseldorf (KI-Beratung, AIOps, AI Literacy). Statische HTML-Seite ohne Build-Schritt, gehostet über GitHub, mit Newsletter-Anmeldung in Supabase.
+Persönliche Portfolio-Seite von **Jakow Smirin**, CEO des STARTPLATZ AI HUB in Düsseldorf (KI-Beratung, AIOps, AI Literacy). Statische HTML-Seite, gehostet über GitHub/Vercel, mit Newsletter-Anmeldung in Supabase. Dazu das Browser-Spiel **Tooldex** unter `/spiel/` (Vite + TypeScript).
 
 - Repo: https://github.com/TheMavel/KI-Development-Woche (Branch `main`)
 - Sprache der Seite und der Kommunikation mit dem Nutzer: **Deutsch**
@@ -18,8 +18,18 @@ Persönliche Portfolio-Seite von **Jakow Smirin**, CEO des STARTPLATZ AI HUB in 
 | `design-system.html` | Dokumentation des Designs (Tokens, Typografie, Komponenten mit Live-Vorschau). Referenz, nicht verlinkt. |
 | `supabase/newsletter.sql` | SQL für die Newsletter-Tabelle inkl. Row Level Security. Wurde im Supabase-Projekt bereits ausgeführt. |
 | `Jakow-Profil.pdf` | Quelle für Lebenslauf und Profiltexte. |
+| `spiel/` | Tooldex: Quiz-Abenteuer im Pokémon-Stil. KI-Tools fangen, Trainer:innen, Endgegner. TypeScript-Module in `spiel/src/` (Daten in `data/`, Engine in `engine/`, Oberfläche in `ui/`). |
+| `package.json`, `vite.config.ts`, `tsconfig.json`, `vercel.json` | Build für Vercel: `npm run build` prüft Typen und baut Portfolio, Design-System und Spiel nach `dist/`. |
 
-Keine Abhängigkeiten, kein `npm`. Zum Ansehen `index.html` im Browser öffnen. Einzige externe Ressource: Google Fonts (Jost, IBM Plex Mono).
+Portfolio und Design-System bleiben ohne Build lauffähig (`index.html` direkt im Browser öffnen). Das Spiel braucht Node: `npm install`, dann `npm run dev` und http://localhost:5173/spiel/ öffnen. Einzige externe Ressource: Google Fonts (Jost, IBM Plex Mono).
+
+### Tooldex (Spiel)
+
+- Inhalte: 21 Tools in `spiel/src/data/tools.ts`, Fragen in `data/questions.ts` (erste Antwort ist immer die richtige, `d` = Schwierigkeit 1–3), Karten/NPCs/Trainer in `data/maps.ts` (Kachel-Legende steht oben in der Datei).
+- Fakten in Fragen und Tool-Texten müssen stimmen. Im Zweifel weglassen statt raten.
+- Grafik nur mit den Design-Tokens (`engine/palette.ts` liest sie aus dem CSS). Orange nur als Licht.
+- Spielstand und Einstellungen liegen im `localStorage` (`tooldex-save-v1`, `tooldex-settings-v1`).
+- Im Dev-Modus gibt es `window.__tooldex` für automatisierte Tests (u. a. `tick()`, weil `requestAnimationFrame` in versteckten Vorschaufenstern pausiert).
 
 ## Design (gewählt: dunkles „gertix“-Design)
 
@@ -80,4 +90,5 @@ JS am Dateiende: Header-Ton, Menü, Uhr (Europe/Berlin), E-Mail kopieren, Newsle
 - [ ] Newsletter-Versand + Double-Opt-in (z. B. Brevo) anbinden
 - [ ] Footer und Hero-Eyebrow noch englisch („Idea Machine & Problem Solver from the Future“, „Idea Machine · AIOps · AI Consultant“) – auf Wunsch eindeutschen
 - [ ] Öffentliche Kontaktadresse prüfen (aktuell private Gmail-Adresse aus dem Profil)
-- [ ] Optional: GitHub Pages aktivieren → https://themavel.github.io/KI-Development-Woche/
+- [ ] Deployment über Vercel (Build-Einstellungen stehen in `vercel.json`)
+- [ ] Optional: Link vom Portfolio zum Spiel (`/spiel/`)
